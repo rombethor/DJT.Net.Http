@@ -36,16 +36,7 @@ namespace DJT.Net.Http
         public async Task<T?> GetContentAsync()
         {
             string text = await _msg.Content.ReadAsStringAsync();
-            string? mediaType = _msg.Content.Headers.ContentType?.MediaType;
-            if (mediaType == null)
-            {
-                return default;
-            }
-            if (mediaType.Contains("json"))
-            {
-                return JsonSerializer.Deserialize<T>(text) ?? default;
-            }
-            return default;
+            return JsonSerializer.Deserialize<T>(text);
         }
 
         /// <summary>
